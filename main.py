@@ -13,7 +13,7 @@ sheet = excel.active
 sheet.title = "Football Database"
 
 # requesting the IMDB website
-url = "https://www.footballdatabase.eu/en/players"
+url = "https://www.footballdatabase.eu/en/players/"
 source = requests.get(url)
 
 # throws an error in case of the URL has issues
@@ -66,8 +66,26 @@ def scrape_best_passers():
     sheet.append(["", ""])
 
 
+def scrape_best_players():
+    # read module
+    module = soup.find("div", class_="module best")
+
+    # read titles
+    titles = module.find_all("h3")
+
+    # read best boxes
+    best_boxes = module.find_all("div", "bestbox")
+
+    for title in titles:
+        print(title)
+
+    for best_box in best_boxes:
+        print(best_box)
+
+
 scrape_best_scorers()
 scrape_best_passers()
+# scrape_best_players()
 
 # save Excel file
 excel.save("Football Database.xlsx")
